@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatefulWidget {
@@ -10,10 +11,14 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     Widget _buildBodyBack() => Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color.fromARGB(255, 211, 118, 130),
-              Color.fromARGB(255, 253, 181, 168),
-            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 211, 118, 130),
+                Color.fromARGB(255, 253, 181, 168),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
         );
 
@@ -32,6 +37,33 @@ class _HomeTabState extends State<HomeTab> {
                 centerTitle: true,
               ),
             ),
+            FutureBuilder<QuerySnapshot>(
+              future: FirebaseFirestore.instance
+                  .collection("home")
+                  .orderBy("pos")
+                  .get(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData)
+                  return SliverToBoxAdapter(
+                    child: Container(
+                      height: 200,
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    ),
+                  );
+                else {
+                  return SliverToBoxAdapter(
+                    child: Container(
+                      height: 200,
+                      alignment: Alignment.center,
+                      child: Container(),
+                    ),
+                  );
+                }
+              },
+            )
           ],
         ),
       ],
