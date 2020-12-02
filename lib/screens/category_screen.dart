@@ -49,7 +49,7 @@ class CategoryScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return ProductTile(
                         type: "grid",
-                        data:
+                        product:
                             ProductData.fromDocument(snapshot.data.docs[index]),
                       );
                     },
@@ -60,7 +60,7 @@ class CategoryScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return ProductTile(
                         type: "list",
-                        data:
+                        product:
                             ProductData.fromDocument(snapshot.data.docs[index]),
                       );
                     },
