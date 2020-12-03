@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_store/screens/home_screen.dart';
 // import 'package:virtual_store/screens/home_screen.dart';
 import 'package:virtual_store/screens/login_screen.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 }
