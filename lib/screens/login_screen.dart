@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:virtual_store/models/user_model.dart';
 import 'package:virtual_store/screens/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -21,67 +23,75 @@ class LoginScreen extends StatelessWidget {
             textColor: Colors.white,
             onPressed: () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => SignupScreen())
-              );
+                  MaterialPageRoute(builder: (context) => SignupScreen()));
             },
           )
         ],
       ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.all(16.0),
-          children: [
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: "E-mail",
-              ),
-              keyboardType: TextInputType.emailAddress,
-              validator: (text) {
-                if (text.isEmpty || !text.contains("@"))
-                  return "Email inválido!";
-              },
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: "Senha",
-              ),
-              obscureText: true,
-              validator: (text) {
-                if (text.isEmpty || text.length < 6) return "Senha inválida!";
-              },
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-                onPressed: () {},
-                child: Text(
-                  "Esqueci minha senha",
-                  textAlign: TextAlign.right,
+      body: ScopedModelDescendant<UserModel>(
+        builder: (context, child, model) {
+          if (model.isLoading) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return Form(
+            key: _formKey,
+            child: ListView(
+              padding: EdgeInsets.all(16.0),
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "E-mail",
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (text) {
+                    if (text.isEmpty || !text.contains("@"))
+                      return "Email inválido!";
+                  },
                 ),
-                padding: EdgeInsets.zero,
-              ),
-            ),
-            SizedBox(height: 16.0),
-            SizedBox(
-              height: 44.0,
-              child: RaisedButton(
-                child: Text(
-                  "Entrar",
-                  style: TextStyle(
-                    fontSize: 20.0,
+                SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Senha",
+                  ),
+                  obscureText: true,
+                  validator: (text) {
+                    if (text.isEmpty || text.length < 6)
+                      return "Senha inválida!";
+                  },
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FlatButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Esqueci minha senha",
+                      textAlign: TextAlign.right,
+                    ),
+                    padding: EdgeInsets.zero,
                   ),
                 ),
-                textColor: Colors.white,
-                color: Theme.of(context).primaryColor,
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {}
-                },
-              ),
+                SizedBox(height: 16.0),
+                SizedBox(
+                  height: 44.0,
+                  child: RaisedButton(
+                    child: Text(
+                      "Entrar",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    textColor: Colors.white,
+                    color: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {}
+                      model.sigIn();
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
