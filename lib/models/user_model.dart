@@ -15,7 +15,7 @@ class UserModel extends Model {
   void sigUp({
     @required Map<String, dynamic> userData,
     @required String pass,
-    @required VoidCallback onSucess,
+    @required VoidCallback onSuccess,
     @required VoidCallback onFail,
   }) {
     isLoading = true;
@@ -31,7 +31,7 @@ class UserModel extends Model {
 
       await _saveUserData(userData);
 
-      onSucess();
+      onSuccess();
       isLoading = false;
       notifyListeners();
     }).catchError((e) {
@@ -55,7 +55,7 @@ class UserModel extends Model {
 
   bool isLoggedIn() {}
 
-  Future<Null> _saverUserData(Map<String, dynamic> userData) async {
+  Future<Null> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
 
     await FirebaseFirestore.instance
