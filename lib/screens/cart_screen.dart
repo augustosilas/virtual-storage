@@ -3,6 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:virtual_store/models/cart_model.dart';
 import 'package:virtual_store/models/user_model.dart';
 import 'package:virtual_store/screens/login_screen.dart';
+import 'package:virtual_store/tiles/cart_tile.dart';
 
 class CartScreen extends StatelessWidget {
   @override
