@@ -52,14 +52,6 @@ class CartPrice extends StatelessWidget {
                   ],
                 ),
                 Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Total'),
-                    Text('R\$ ${(price + ship - discount).toStringAsFixed(2)}'),
-                  ],
-                ),
-                Divider(),
                 SizedBox(height: 12.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +61,7 @@ class CartPrice extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      'R\$ 0,00',
+                      'R\$ ${(price + ship - discount).toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 16.0,
@@ -81,7 +73,7 @@ class CartPrice extends StatelessWidget {
                 RaisedButton(
                   child: Text('Finalizar Pedido'),
                   textColor: Theme.of(context).primaryColor,
-                  onPressed: () {},
+                  onPressed: buy,
                 )
               ],
             );
