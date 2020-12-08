@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:virtual_store/datas/cart_product.dart';
@@ -9,6 +8,10 @@ class CartModel extends Model {
   UserModel user;
 
   List<CartProduct> products = [];
+
+  String couponCode;
+
+  int discountPercentage = 0;
 
   bool isLoading = false;
 
@@ -69,6 +72,11 @@ class CartModel extends Model {
         .update(cartProduct.toMap());
 
     notifyListeners();
+  }
+
+  void setCoupon(String couponCode, int discountPercentage) {
+    this.couponCode = couponCode;
+    this.discountPercentage = discountPercentage;
   }
 
   void _loadCartItems() async {
